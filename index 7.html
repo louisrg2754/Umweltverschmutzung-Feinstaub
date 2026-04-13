@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feinstaub & Umwelt</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4F1EC;
+    --surface: #FFFFFF;
+    --text: #1A1A1A;
+    --text-muted: #5A5A5A;
+    --accent: #2D6A4F;
+    --accent-light: #D8F3DC;
+    --accent-dark: #1B4332;
+    --danger: #C1440E;
+    --danger-light: #FDEBD0;
+    --blue: #1D3557;
+    --blue-light: #A8DADC;
+    --border: #E0DCD5;
+    --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === HERO === */
+  .hero {
+    background: linear-gradient(160deg, var(--accent-dark) 0%, var(--accent) 60%, #40916C 100%);
+    color: white;
+    padding: 80px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.04) 0%, transparent 40%);
+  }
+  .hero-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero p {
+    font-size: 16px;
+    opacity: 0.85;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* === PARTICLES DECORATION === */
+  .particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .particles span {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    animation: float 8s ease-in-out infinite;
+  }
+  .particles span:nth-child(1) { width: 6px; height: 6px; top: 20%; left: 15%; animation-delay: 0s; }
+  .particles span:nth-child(2) { width: 4px; height: 4px; top: 40%; left: 75%; animation-delay: 1.5s; }
+  .particles span:nth-child(3) { width: 8px; height: 8px; top: 70%; left: 30%; animation-delay: 3s; }
+  .particles span:nth-child(4) { width: 3px; height: 3px; top: 25%; left: 85%; animation-delay: 4s; }
+  .particles span:nth-child(5) { width: 5px; height: 5px; top: 60%; left: 60%; animation-delay: 2s; }
+  .particles span:nth-child(6) { width: 7px; height: 7px; top: 80%; left: 80%; animation-delay: 5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
+    50% { transform: translateY(-20px) scale(1.3); opacity: 0.8; }
+  }
+
+  /* === MAIN CONTENT === */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* === SECTION === */
+  .section {
+    margin: 24px 0;
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 32px 28px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border);
+    position: relative;
+    animation: fadeUp 0.5s ease-out both;
+  }
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.1s; }
+  .section:nth-child(3) { animation-delay: 0.15s; }
+  .section:nth-child(4) { animation-delay: 0.2s; }
+  .section:nth-child(5) { animation-delay: 0.25s; }
+  .section:nth-child(6) { animation-delay: 0.3s; }
+  .section:nth-child(7) { animation-delay: 0.35s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    color: white;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: var(--accent-dark);
+    line-height: 1.3;
+  }
+
+  .section p {
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* === HIGHLIGHT BOX === */
+  .highlight {
+    background: var(--accent-light);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    border-left: 3px solid var(--accent);
+  }
+  .highlight p { color: var(--accent-dark); margin-bottom: 6px; }
+  .highlight p:last-child { margin-bottom: 0; }
+
+  .warning {
+    background: var(--danger-light);
+    border-left-color: var(--danger);
+  }
+  .warning p { color: #7A2E0A; }
+
+  /* === PM COMPARISON === */
+  .pm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .pm-card {
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+  }
+  .pm-card.pm10 {
+    background: linear-gradient(135deg, #E8F4FD, #D6EAF8);
+    border: 1px solid #AED6F1;
+  }
+  .pm-card.pm25 {
+    background: linear-gradient(135deg, #FDEDEC, #FADBD8);
+    border: 1px solid #F5B7B1;
+  }
+  .pm-label {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .pm10 .pm-label { color: var(--blue); }
+  .pm25 .pm-label { color: var(--danger); }
+  .pm-size {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .pm-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* === PATHWAY LIST === */
+  .pathway {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 16px 0;
+  }
+  .pathway-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+    padding-bottom: 16px;
+  }
+  .pathway-step:last-child { padding-bottom: 0; }
+  .pathway-step::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 32px;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .pathway-step:last-child::before { display: none; }
+  .pathway-dot {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .pathway-content strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .pathway-content span {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* === SYMPTOMS / RISKS === */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .tag-green {
+    background: var(--accent-light);
+    color: var(--accent-dark);
+  }
+  .tag-red {
+    background: #FDEBD0;
+    color: #7A2E0A;
+  }
+  .tag-blue {
+    background: #D6EAF8;
+    color: var(--blue);
+  }
+  .tag-orange {
+    background: #FEF3E2;
+    color: #B45309;
+  }
+
+  /* === ICON ROW === */
+  .icon-row {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .icon-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+    padding: 16px 8px;
+    background: var(--accent-light);
+    border-radius: 12px;
+  }
+  .icon-item .emoji {
+    font-size: 28px;
+    line-height: 1;
+  }
+  .icon-item span {
+    font-size: 12px;
+    color: var(--accent-dark);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* === QR SECTION === */
+  .qr-section {
+    margin: 24px 0 40px;
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 32px 28px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .qr-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent-dark);
+    margin-bottom: 6px;
+  }
+  .qr-section p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .qr-wrapper {
+    display: inline-block;
+    padding: 16px;
+    background: white;
+    border-radius: 12px;
+    border: 2px solid var(--accent-light);
+  }
+  .qr-wrapper img {
+    display: block;
+    width: 160px;
+    height: 160px;
+  }
+  .qr-url {
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--text-muted);
+    word-break: break-all;
+  }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    opacity: 0.7;
+  }
+
+  /* === DIVIDER === */
+  .mini-divider {
+    width: 40px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 12px 0 16px;
+    opacity: 0.5;
+  }
+
+  /* === SIZE COMPARISON === */
+  .size-compare {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin: 20px 0 8px;
+    padding: 16px;
+    background: #FAFAF8;
+    border-radius: 12px;
+  }
+  .size-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .size-circle {
+    border-radius: 50%;
+    background: var(--text);
+    opacity: 0.15;
+  }
+  .size-circle.hair { width: 60px; height: 60px; }
+  .size-circle.pm10c { width: 20px; height: 20px; background: var(--blue); opacity: 0.5; }
+  .size-circle.pm25c { width: 8px; height: 8px; background: var(--danger); opacity: 0.6; }
+  .size-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* === AT-RISK === */
+  .risk-persons {
+    display: flex;
+    gap: 12px;
+    margin: 12px 0;
+    flex-wrap: wrap;
+  }
+  .risk-person {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #FEF3E2;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #92400E;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="particles">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div style="position:relative;">
+    <div class="hero-label">Biologie &middot; Umwelt &middot; Gesundheit</div>
+    <h1>Feinstaub<br>&amp; unsere Atemwege</h1>
+    <p>Wie kleinste Partikel in unseren Körper gelangen &ndash; und was das für unsere Gesundheit bedeutet.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 1. WAS IST FEINSTAUB -->
+  <div class="section">
+    <div class="section-number">1</div>
+    <h2>Was ist Feinstaub?</h2>
+    <p>Feinstaub besteht aus winzigen festen oder flüssigen Partikeln, die in der Luft schweben. Er entsteht unter anderem durch Autoverkehr, Industrie, Heizungen und Brände.</p>
+    <p>Die Partikel sind so klein, dass sie beim Einatmen tief in die Atemwege und die Lunge gelangen. Besonders ultrafeine Partikel können sogar ins Blut übergehen.</p>
+    <div class="highlight">
+      <p><strong>Hauptquellen:</strong> Straßenverkehr, industrielle Prozesse, Holz- und Kohleheizungen, Landwirtschaft, natürliche Quellen (z.&thinsp;B. Waldbrände, Vulkane).</p>
+    </div>
+  </div>
+
+  <!-- 2. PARTIKELGRÖSSEN -->
+  <div class="section">
+    <div class="section-number">2</div>
+    <h2>Partikelgrößen: PM10 &amp; PM2,5</h2>
+    <div class="pm-grid">
+      <div class="pm-card pm10">
+        <div class="pm-label">PM10</div>
+        <div class="pm-size">&lt; 10 Mikrometer</div>
+        <div class="pm-desc">Dringt in Nase, Rachen und Bronchien ein</div>
+      </div>
+      <div class="pm-card pm25">
+        <div class="pm-label">PM2,5</div>
+        <div class="pm-size">&lt; 2,5 Mikrometer</div>
+        <div class="pm-desc">Gelangt bis in die Lungenbläschen (Alveolen)</div>
+      </div>
+    </div>
+
+    <div class="size-compare">
+      <div class="size-item">
+        <div class="size-circle hair"></div>
+        <div class="size-label">Haar ~70 µm</div>
+      </div>
+      <div class="size-item">
+        <div class="size-circle pm10c"></div>
+        <div class="size-label">PM10</div>
+      </div>
+      <div class="size-item">
+        <div class="size-circle pm25c"></div>
+        <div class="size-label">PM2,5</div>
+      </div>
+    </div>
+    <p style="font-size:13px; text-align:center; color:var(--text-muted); margin-top:4px;">Je kleiner die Partikel, desto tiefer dringen sie in den Körper ein. Ultrafeine Partikel können durch die Alveolen ins Blut gelangen.</p>
+  </div>
+
+  <!-- 3. AUFBAU DER ATEMWEGE -->
+  <div class="section">
+    <div class="section-number">3</div>
+    <h2>Der Weg durch die Atemwege</h2>
+    <p>Beim Einatmen durchläuft die Luft mehrere Stationen. Jede Stufe filtert normalerweise Schadstoffe &ndash; doch Feinstaub kann diesen Mechanismus umgehen.</p>
+    <div class="pathway">
+      <div class="pathway-step">
+        <div class="pathway-dot">👃</div>
+        <div class="pathway-content">
+          <strong>Nase</strong>
+          <span>Filtert größere Partikel mit Schleim und Härchen</span>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="pathway-dot">🫁</div>
+        <div class="pathway-content">
+          <strong>Luftröhre</strong>
+          <span>Transportiert die Luft in Richtung Lunge</span>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="pathway-dot">🌿</div>
+        <div class="pathway-content">
+          <strong>Bronchien</strong>
+          <span>Verzweigen sich immer feiner in kleinere Äste</span>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="pathway-dot">🔬</div>
+        <div class="pathway-content">
+          <strong>Bronchiolen</strong>
+          <span>Sehr kleine Luftwege vor den Lungenbläschen</span>
+        </div>
+      </div>
+      <div class="pathway-step">
+        <div class="pathway-dot">🩸</div>
+        <div class="pathway-content">
+          <strong>Alveolen</strong>
+          <span>Hier findet der Gasaustausch mit dem Blut statt &ndash; und hier können Feinstaubpartikel eindringen</span>
+        </div>
+      </div>
+    </div>
+    <div class="highlight warning">
+      <p><strong>Problem:</strong> Feinstaub ist so klein, dass er die natürlichen Filtermechanismen der Atemwege umgeht und bis in die tiefsten Bereiche der Lunge vordringt.</p>
+    </div>
+  </div>
+
+  <!-- 4. ENTZÜNDUNGSREAKTION -->
+  <div class="section">
+    <div class="section-number">4</div>
+    <h2>Biologische Reaktion: Entzündung</h2>
+    <p>Wenn Feinstaubpartikel in die Lunge gelangen, reagiert der Körper mit einer Immunantwort. Makrophagen (Fresszellen) versuchen die Partikel zu beseitigen &ndash; dabei entstehen Entzündungsreaktionen, die die Schleimhäute reizen.</p>
+    <div class="mini-divider"></div>
+    <p><strong>Typische Symptome:</strong></p>
+    <div class="tag-list">
+      <span class="tag tag-red">Husten</span>
+      <span class="tag tag-red">Atemprobleme</span>
+      <span class="tag tag-red">Reizung der Atemwege</span>
+    </div>
+    <div class="highlight warning" style="margin-top:16px;">
+      <p>Bei wiederholter Belastung kann die Entzündung chronisch werden und dauerhafte Schäden verursachen.</p>
+    </div>
+  </div>
+
+  <!-- 5. WIRKUNG AUF ZELLEN UND BLUT -->
+  <div class="section">
+    <div class="section-number">5</div>
+    <h2>Wirkung auf Zellen &amp; Blut</h2>
+    <p>Ultrafeine Partikel passieren die Wand der Lungenbläschen und gelangen in den Blutkreislauf. Dort verursachen sie oxidativen Stress, schädigen Zellen und belasten das Herz-Kreislauf-System.</p>
+    <div class="highlight">
+      <p><strong>Die Folge:</strong> Mehr Entzündungsstoffe im Körper, Belastung von Organen und Blutgefäßen &ndash; ein systemisches Gesundheitsrisiko.</p>
+    </div>
+    <div style="display:flex; align-items:center; justify-content:center; gap:12px; margin-top:16px; padding:12px; background:#FAFAF8; border-radius:10px; font-size:13px; color:var(--text-muted);">
+      <span style="font-size:20px;">🫁</span>
+      <span style="font-size:18px;">→</span>
+      <span style="font-size:20px;">🩸</span>
+      <span style="font-size:18px;">→</span>
+      <span style="font-size:20px;">🫀</span>
+      <span style="font-size:18px;">→</span>
+      <span style="font-size:20px;">⚠️</span>
+    </div>
+    <p style="text-align:center; font-size:12px; color:var(--text-muted); margin-top:6px;">Lunge → Blut → Herz-Kreislauf → Systemrisiko</p>
+  </div>
+
+  <!-- 6. LANGZEITFOLGEN -->
+  <div class="section">
+    <div class="section-number">6</div>
+    <h2>Langzeitfolgen</h2>
+    <p>Langfristige Feinstaubbelastung erhöht das Risiko für schwerwiegende Erkrankungen:</p>
+    <div class="tag-list" style="margin-top:12px;">
+      <span class="tag tag-red">Asthma</span>
+      <span class="tag tag-red">Chron. Bronchitis</span>
+      <span class="tag tag-red">COPD</span>
+      <span class="tag tag-red">Lungenkrebs</span>
+      <span class="tag tag-red">Herzinfarkt</span>
+    </div>
+    <div class="mini-divider" style="margin-top:20px;"></div>
+    <p><strong>Besonders gefährdete Gruppen:</strong></p>
+    <div class="risk-persons">
+      <div class="risk-person">👶 Kinder</div>
+      <div class="risk-person">👴 Ältere Menschen</div>
+      <div class="risk-person">🫁 Lungenerkrankte</div>
+    </div>
+  </div>
+
+  <!-- 7. SCHUTZ -->
+  <div class="section">
+    <div class="section-number">7</div>
+    <h2>Schutz &amp; Prävention</h2>
+    <p>Maßnahmen, die helfen, die Feinstaubbelastung zu senken und den Körper zu schützen:</p>
+    <div class="icon-row">
+      <div class="icon-item">
+        <div class="emoji">🚲</div>
+        <span>Weniger Auto&shy;verkehr</span>
+      </div>
+      <div class="icon-item">
+        <div class="emoji">🚌</div>
+        <span>Öffentlicher Nahverkehr</span>
+      </div>
+      <div class="icon-item">
+        <div class="emoji">⚡</div>
+        <span>Elektro&shy;mobilität</span>
+      </div>
+      <div class="icon-item">
+        <div class="emoji">🌳</div>
+        <span>Bäume &amp; Grünflächen</span>
+      </div>
+    </div>
+    <div class="highlight">
+      <p><strong>An Tagen mit hoher Belastung:</strong> Sport im Freien meiden, Fenster geschlossen halten. Pflanzen und Bäume können einen Teil der Partikel aus der Luft filtern.</p>
+    </div>
+  </div>
+
+  <!-- QR CODE SECTION -->
+  <div class="qr-section">
+    <h2>Gesamtübersicht ansehen</h2>
+    <p>QR-Code scannen für die vollständige Übersicht zum Thema Feinstaub &amp; Gesundheit</p>
+    <div class="qr-wrapper">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https%3A%2F%2Fexample.com%2Ffeinstaub-uebersicht&format=svg&color=1B4332&bgcolor=FFFFFF&qzone=2" alt="QR-Code zur Gesamtübersicht">
+    </div>
+    <div class="qr-url">example.com/feinstaub-uebersicht</div>
+    <p style="font-size:11px; color:#aaa; margin-top:12px; margin-bottom:0;">URL im QR-Code bitte durch den tatsächlichen Link ersetzen</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  Erstellt im Rahmen eines Schulprojekts &middot; Biologie &middot; 2026
+</div>
+
+</body>
+</html>
